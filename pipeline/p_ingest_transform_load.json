@@ -1,0 +1,58 @@
+{
+	"name": "p_ingest_transform_load",
+	"properties": {
+		"activities": [
+			{
+				"name": "broze-silver",
+				"description": "bronze to silver layer transformation",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/farhadayan@gmail.com/Bronze_Silver-datatransform"
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_Databricks",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "silver-gold-database",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "broze-silver",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/farhadayan@gmail.com/Silver_Gold-transfom-build_table"
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_Databricks",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-10-05T17:50:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

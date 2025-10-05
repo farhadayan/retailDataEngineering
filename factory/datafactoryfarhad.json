@@ -1,0 +1,9 @@
+{
+	"name": "datafactoryfarhad",
+	"location": "northeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2e2975c3-868e-4002-ab85-a90e7dfd4739",
+		"tenantId": "9629499e-da37-4bf6-8364-844cab6994eb"
+	}
+}
