@@ -1,0 +1,16 @@
+{
+	"name": "ds_gold_sales",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FactSales"
+		}
+	}
+}
