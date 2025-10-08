@@ -17,23 +17,43 @@ To build a simple yet realistic retail data pipeline:
 
 
 Transformation Logic
-Bronze → Silver
-
+Bronze - Silver (Bronze_Silver-datatransformation)
 Read raw data (sales.csv, products.csv, customers.json)
 
 Clean missing values
 Convert data types
 Write standardized data to /processed/ as Parquet
 
-Silver → Gold
+Silver - Gold - build_table (Silver_Gold-transformation-build_table)
 
 Join Customers, Products, and Sales
 Compute derived columns (e.g. TotalAmount = Quantity * Price)
 Create dimension and fact tables
 Store in /curated/ for analytics
-
-Gold → Azure SQL
-
 Write curated tables to Azure SQL Database (or export as CSV for demo)
 Ready for Power BI or other visualization tools
 
+
+Databricks Notebooks
+
+Bronze_Silver-datatransformation.py	              Cleans and standardizes raw data	                            Raw CSV/JSON	                      Silver Parquet
+Silver_Gold-transformation-build_table.py	        Joins, aggregates data and	Loads data to SQL                 Silver Parquet-Load data to Table	  Gold Parquet
+
+Each notebook is written in PySpark and can be executed manually or triggered from ADF.
+
+Azure Data Factory (ADF) Orchestration
+Pipeline: p_ingest_transform_load
+Web Activity 1 → Run bronze_to_silver Databricks notebook
+Web Activity 2 → Run silver_to_gold_table notebook (depends on previous success) load to table (final stage)
+
+(Optional) Copy Data Activity to ingest raw files from Blob/HTTP
+
+
+
+Author
+
+Mohammad Farhad Ahmed
+Data Engineering Enthusiast
+farhadayan@gmail.com
+https://www.linkedin.com/in/farhad-ahmed/
+https://github.com/farhadayan/retailDataEngineering
